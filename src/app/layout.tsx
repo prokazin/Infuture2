@@ -2,10 +2,10 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Infuture - Tech Store',
+  title: 'Infuture',
   description: 'Premium tech store',
   viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no',
-  themeColor: '#181818',
+  themeColor: '#111827',
 }
 
 export default function RootLayout({
@@ -17,8 +17,9 @@ export default function RootLayout({
     <html lang="ru">
       <head>
         <script src="https://telegram.org/js/telegram-web-app.js" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
       </head>
-      <body className="font-['Gotham_Pro']">{children}</body>
+      <body>{children}</body>
     </html>
   )
 }
