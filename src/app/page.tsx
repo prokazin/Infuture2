@@ -19,76 +19,55 @@ const setStorage = (key: string, value: any) => {
   localStorage.setItem(`${STORAGE_PREFIX}${key}`, JSON.stringify(value))
 }
 
+// Товары из дизайна
 const defaultProducts: Product[] = [
   {
     id: '1',
-    name: 'iPhone 15 Pro Max',
+    name: 'iPhone 17 pro max',
     category: 'iPhone',
-    memory: '256GB',
-    price: 1299,
-    images: ['https://picsum.photos/seed/iphone15/400/400'],
-    description: 'Флагманский iPhone с титановым корпусом',
-    specifications: { 'Экран': '6.7"', 'Процессор': 'A17 Pro' },
+    memory: '256 gb',
+    price: 117000,
+    images: ['https://picsum.photos/seed/iphone17/400/400'],
+    description: 'Флагманский iPhone с передовыми технологиями',
+    specifications: { 'Экран': '6.9"', 'Процессор': 'A19 Pro', 'Камера': '48MP' },
     inStock: true
   },
   {
     id: '2',
-    name: 'Samsung Galaxy S24',
-    category: 'Samsung',
-    memory: '256GB',
-    price: 999,
-    images: ['https://picsum.photos/seed/samsung24/400/400'],
-    description: 'Мощный Android смартфон',
-    specifications: { 'Экран': '6.8"', 'Процессор': 'Snapdragon 8 Gen 3' },
+    name: 'iPhone 17 pro max',
+    category: 'iPhone',
+    memory: '256 gb',
+    price: 117000,
+    images: ['https://picsum.photos/seed/iphone17pro/400/400'],
+    description: 'Мощный iPhone с улучшенной камерой',
+    specifications: { 'Экран': '6.9"', 'Процессор': 'A19 Pro', 'Камера': '48MP' },
     inStock: true
   },
   {
     id: '3',
-    name: 'MacBook Pro 16"',
-    category: 'MacBook',
-    memory: '1TB',
-    price: 2499,
-    images: ['https://picsum.photos/seed/macbook16/400/400'],
-    description: 'Мощный ноутбук для профессионалов',
-    specifications: { 'Экран': '16.2"', 'Процессор': 'M3 Pro' },
+    name: 'iPhone 17 pro max',
+    category: 'iPhone',
+    memory: '256 gb',
+    price: 117000,
+    images: ['https://picsum.photos/seed/iphone17max/400/400'],
+    description: 'Профессиональный iPhone для творчества',
+    specifications: { 'Экран': '6.9"', 'Процессор': 'A19 Pro', 'Камера': '48MP' },
     inStock: true
   },
   {
     id: '4',
-    name: 'iPad Pro 12.9"',
-    category: 'iPad',
-    memory: '256GB',
-    price: 1099,
-    images: ['https://picsum.photos/seed/ipadpro/400/400'],
-    description: 'Профессиональный планшет',
-    specifications: { 'Экран': '12.9"', 'Процессор': 'M2' },
-    inStock: true
-  },
-  {
-    id: '5',
-    name: 'AirPods Pro 2',
-    category: 'Аксессуары',
-    memory: 'N/A',
-    price: 249,
-    images: ['https://picsum.photos/seed/airpods/400/400'],
-    description: 'Беспроводные наушники',
-    specifications: { 'Батарея': '6ч', 'Шумоподавление': 'Да' },
-    inStock: true
-  },
-  {
-    id: '6',
-    name: 'iPhone 15',
-    category: 'iPhone',
-    memory: '128GB',
-    price: 799,
-    images: ['https://picsum.photos/seed/iphone15/400/400'],
-    description: 'Стильный iPhone с Dynamic Island',
-    specifications: { 'Экран': '6.1"', 'Процессор': 'A16 Bionic' },
+    name: 'Samsung S26',
+    category: 'Samsung',
+    memory: '256 gb',
+    price: 117000,
+    images: ['https://picsum.photos/seed/samsungs26/400/400'],
+    description: 'Флагманский Samsung с ИИ функциями',
+    specifications: { 'Экран': '6.8"', 'Процессор': 'Snapdragon 8 Gen 4', 'Камера': '200MP' },
     inStock: true
   }
 ]
 
-const filters = ['Все', 'iPhone', 'Samsung', 'MacBook', 'iPad', 'Аксессуары']
+const filters = ['Все', 'iPhone', 'Samsung', 'Macbook']
 
 export default function Home() {
   const [activeFilter, setActiveFilter] = useState('Все')
@@ -128,20 +107,22 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <TopBar />
       
+      {/* Фильтры - горизонтальный скролл */}
       <div className="px-4 py-3 overflow-x-auto">
-        <div className="flex gap-2 min-w-max max-w-md mx-auto">
+        <div className="flex gap-2 min-w-max">
           {filters.map((filter) => (
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap
                 ${activeFilter === filter 
-                  ? 'filter-active' 
-                  : 'bg-card text-gray-400 hover:text-white'
+                  ? 'bg-primary text-white' 
+                  : 'bg-[#2A2A2A] text-gray-400 hover:text-white'
                 }`}
+              style={{ fontFamily: 'Gotham Pro, sans-serif' }}
             >
               {filter}
             </button>
@@ -149,7 +130,15 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="px-4 max-w-md mx-auto pb-4">
+      {/* Заголовок Каталог */}
+      <div className="px-4 py-2">
+        <h1 className="text-2xl font-bold text-white" style={{ fontFamily: 'Gotham Pro, sans-serif' }}>
+          Каталог
+        </h1>
+      </div>
+
+      {/* Сетка товаров 2 колонки */}
+      <div className="px-4 pb-24">
         <div className="grid grid-cols-2 gap-3">
           {filteredProducts.map((product) => (
             <ProductCard 
