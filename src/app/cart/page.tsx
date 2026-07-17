@@ -5,14 +5,27 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Product } from '@/types'
 
+const STORAGE_PREFIX = 'infuture_'
+
+const getStorage = (key: string) => {
+  if (typeof window === 'undefined') return null
+  const data = localStorage.getItem(`${STORAGE_PREFIX}${key}`)
+  return data ? JSON.parse(data) : null
+}
+
+const setStorage = (key: string, value: any) => {
+  if (typeof window === 'undefined') return
+  localStorage.setItem(`${STORAGE_PREFIX}${key}`, JSON.stringify(value))
+}
+
 export default function CartPage() {
   const [cart, setCart] = useState<Product[]>([])
   const [quantities, setQuantities] = useState<Record<string, number>>({})
 
   useEffect(() => {
-    const saved = localStorage.getItem('cart')
+    const saved = getStorage('cart')
     if (saved) {
-      const items = JSON.parse(saved)
+      const items = saved
       setCart(items)
       
       const q: Record<string, number> = {}
@@ -44,12 +57,10 @@ export default function CartPage() {
     }
     
     setQuantities(newQ)
-    localStorage.setItem('cart', JSON.stringify(
-      Object.entries(newQ).flatMap(([id, count]) => {
-        const product = cart.find(p => p.id === id)
-        return product ? Array(count).fill(product) : []
-      })
-    ))
+    setStorage('cart', Object.entries(newQ).flatMap(([id, count]) => {
+      const product = cart.find(p => p.id === id)
+      return product ? Array(count).fill(product) : []
+    }))
   }
 
   const total = cart.reduce((sum, item) => sum + item.price, 0)
@@ -61,7 +72,7 @@ export default function CartPage() {
         <div className="text-6xl mb-4">🛒</div>
         <h2 className="text-2xl font-semibold mb-2">Корзина пуста</h2>
         <p className="text-gray-400 text-center mb-6">Добавьте товары в корзину</p>
-        <Link href="/" className="px-6 py-3 rounded-xl btn-primary text-white">
+        <Link href="/" className="px-6 py-3 rounded-xl btn-primary">
           В магазин
         </Link>
       </div>
@@ -73,10 +84,14 @@ export default function CartPage() {
   return (
     <div className="min-h-screen pb-24">
       <div className="glass sticky top-0 z-10 px-4 py-3 mx-2 mt-2">
-        <h1 className="text-xl font-bold text-center">🛒 Корзина</h1>
+        <div className="flex items-center justify-between max-w-md mx-auto">
+          <Link href="/" className="text-xl hover:scale-110 transition-transform">←</Link>
+          <h1 className="text-xl font-bold">🛒 Корзина</h1>
+          <span className="text-sm text-gray-400">{uniqueItems} товаров</span>
+        </div>
       </div>
 
-      <div className="px-4 max-w-7xl mx-auto mt-4">
+      <div className="px-4 max-w-md mx-auto mt-4">
         {uniqueCart.map((item) => (
           <div key={item.id} className="glass p-3 mb-3 flex items-center gap-3">
             <div className="relative w-20 aspect-square rounded-xl overflow-hidden flex-shrink-0">
@@ -93,7 +108,7 @@ export default function CartPage() {
               <div className="flex items-center gap-1">
                 <button
                   onClick={() => updateQuantity(item.id, -1)}
-                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-sm font-bold"
+                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-sm font-bold transition-colors"
                 >
                   −
                 </button>
@@ -102,7 +117,7 @@ export default function CartPage() {
                 </span>
                 <button
                   onClick={() => updateQuantity(item.id, 1)}
-                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-sm font-bold"
+                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-sm font-bold transition-colors"
                 >
                   +
                 </button>
@@ -111,7 +126,7 @@ export default function CartPage() {
           </div>
         ))}
 
-        <div className="glass p-4 mt-4">
+        <div className="glass p-4 mt-4 sticky bottom-20">
           <div className="flex justify-between text-sm mb-2">
             <span className="text-gray-400">Товаров: {uniqueItems}</span>
             <span>${total.toFixed(0)}</span>
@@ -128,12 +143,12 @@ export default function CartPage() {
           </div>
           <button
             onClick={() => {
-              alert(`Заказ оформлен! Сумма: $${total.toFixed(0)}`)
-              localStorage.removeItem('cart')
+              alert(`✅ Заказ оформлен!\nСумма: $${total.toFixed(0)}\nСпасибо за покупку!`)
+              setStorage('cart', [])
               setCart([])
               setQuantities({})
             }}
-            className="w-full py-3 rounded-xl btn-primary text-white font-semibold"
+            className="w-full py-3 rounded-xl btn-primary font-semibold"
           >
             Оформить заказ
           </button>
