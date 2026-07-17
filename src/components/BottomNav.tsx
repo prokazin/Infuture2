@@ -9,46 +9,41 @@ export default function BottomNav() {
   const isActive = (path: string) => pathname === path
 
   return (
-    <nav className="bg-[#1A1A1A] fixed bottom-0 left-0 right-0 px-4 py-2 z-50 border-t border-white/5">
-      <div className="flex justify-around items-center max-w-md mx-auto">
-        <Link href="/" className="flex flex-col items-center gap-0.5">
-          <span className={`text-2xl ${isActive('/') ? 'text-primary' : 'text-gray-500'}`}>
-            🏪
-          </span>
-          <span className={`text-[10px] ${isActive('/') ? 'text-white' : 'text-gray-500'}`} style={{ fontFamily: 'Gotham Pro, sans-serif' }}>
-            Магазин
-          </span>
-        </Link>
+    <nav className="bottom-nav fixed bottom-0 left-0 right-0 z-50">
+      <div className="max-w-xl mx-auto">
+        <div className="flex justify-around py-3">
+          <Link href="/" className="flex flex-col items-center gap-0.5">
+            <i className={`fas fa-store text-2xl ${isActive('/') ? 'text-violet-400' : 'text-gray-400'}`}></i>
+            <span className={`text-xs mt-1 ${isActive('/') ? 'text-violet-400' : 'text-gray-400'}`}>
+              Магазин
+            </span>
+          </Link>
 
-        <Link href="/cart" className="flex flex-col items-center gap-0.5">
-          <span className={`text-2xl ${isActive('/cart') ? 'text-primary' : 'text-gray-500'}`}>
-            🛒
-          </span>
-          <span className={`text-[10px] ${isActive('/cart') ? 'text-white' : 'text-gray-500'}`} style={{ fontFamily: 'Gotham Pro, sans-serif' }}>
-            Корзина
-          </span>
-        </Link>
+          <Link href="/categories" className="flex flex-col items-center gap-0.5">
+            <i className={`fas fa-th-large text-2xl ${isActive('/categories') ? 'text-violet-400' : 'text-gray-400'}`}></i>
+            <span className={`text-xs mt-1 ${isActive('/categories') ? 'text-violet-400' : 'text-gray-400'}`}>
+              Категории
+            </span>
+          </Link>
 
-        <div className="relative -mt-6">
-          <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-lg shadow-primary/30">
-            <span className="text-2xl font-bold text-white">∞</span>
-          </div>
-        </div>
+          <Link href="/" className="flex flex-col items-center gap-0.5">
+            <i className="fas fa-infinity text-3xl text-violet-400"></i>
+            <span className="text-xs text-violet-400 mt-1">Infuture</span>
+          </Link>
 
-        <Link href="/profile" className="flex flex-col items-center gap-0.5">
-          <span className={`text-2xl ${isActive('/profile') ? 'text-primary' : 'text-gray-500'}`}>
-            👤
-          </span>
-          <span className={`text-[10px] ${isActive('/profile') ? 'text-white' : 'text-gray-500'}`} style={{ fontFamily: 'Gotham Pro, sans-serif' }}>
-            Профиль
-          </span>
-        </Link>
+          <Link href="/cart" className="flex flex-col items-center gap-0.5">
+            <i className={`fas fa-shopping-cart text-2xl ${isActive('/cart') ? 'text-violet-400' : 'text-gray-400'}`}></i>
+            <span className={`text-xs mt-1 ${isActive('/cart') ? 'text-violet-400' : 'text-gray-400'}`}>
+              Корзина
+            </span>
+          </Link>
 
-        <div className="flex flex-col items-center gap-0.5">
-          <span className="text-2xl text-gray-500">☰</span>
-          <span className="text-[10px] text-gray-500" style={{ fontFamily: 'Gotham Pro, sans-serif' }}>
-            Меню
-          </span>
+          <Link href="/profile" className="flex flex-col items-center gap-0.5">
+            <i className={`fas fa-user text-2xl ${isActive('/profile') ? 'text-violet-400' : 'text-gray-400'}`}></i>
+            <span className={`text-xs mt-1 ${isActive('/profile') ? 'text-violet-400' : 'text-gray-400'}`}>
+              Профиль
+            </span>
+          </Link>
         </div>
       </div>
     </nav>
