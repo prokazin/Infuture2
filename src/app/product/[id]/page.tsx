@@ -16,96 +16,65 @@ const getStorage = (key: string) => {
 const defaultProducts: Product[] = [
   {
     id: '1',
-    name: 'iPhone 15 Pro Max',
+    name: 'iPhone 17 pro max',
     category: 'iPhone',
-    memory: '256GB',
-    price: 1299,
-    images: ['https://picsum.photos/seed/iphone15/800/800', 'https://picsum.photos/seed/iphone15/2/800/800'],
-    description: 'Флагманский iPhone с титановым корпусом, чипом A17 Pro и профессиональной камерой.',
+    memory: '256 gb',
+    price: 117000,
+    images: ['https://picsum.photos/seed/iphone17/800/800', 'https://picsum.photos/seed/iphone17/2/800/800'],
+    description: 'Флагманский iPhone с передовыми технологиями и улучшенной камерой.',
     specifications: {
-      'Экран': '6.7" Super Retina XDR',
-      'Процессор': 'A17 Pro',
-      'Камера': '48MP Main',
-      'Батарея': 'До 29ч'
+      'Экран': '6.9" Super Retina XDR',
+      'Процессор': 'A19 Pro',
+      'Камера': '48MP Main + 12MP Ultra Wide',
+      'Батарея': 'До 30ч'
     },
     inStock: true
   },
   {
     id: '2',
-    name: 'Samsung Galaxy S24',
-    category: 'Samsung',
-    memory: '256GB',
-    price: 999,
-    images: ['https://picsum.photos/seed/samsung24/800/800', 'https://picsum.photos/seed/samsung24/2/800/800'],
-    description: 'Мощный Android смартфон с ИИ функциями и улучшенной камерой.',
+    name: 'iPhone 17 pro max',
+    category: 'iPhone',
+    memory: '256 gb',
+    price: 117000,
+    images: ['https://picsum.photos/seed/iphone17pro/800/800', 'https://picsum.photos/seed/iphone17pro/2/800/800'],
+    description: 'Мощный iPhone с улучшенной камерой и производительностью.',
     specifications: {
-      'Экран': '6.8" Dynamic AMOLED',
-      'Процессор': 'Snapdragon 8 Gen 3',
-      'Камера': '200MP Quad',
-      'Батарея': '5000mAh'
+      'Экран': '6.9" Super Retina XDR',
+      'Процессор': 'A19 Pro',
+      'Камера': '48MP Main + 12MP Ultra Wide',
+      'Батарея': 'До 30ч'
     },
     inStock: true
   },
   {
     id: '3',
-    name: 'MacBook Pro 16"',
-    category: 'MacBook',
-    memory: '1TB',
-    price: 2499,
-    images: ['https://picsum.photos/seed/macbook16/800/800', 'https://picsum.photos/seed/macbook16/2/800/800'],
-    description: 'Мощный ноутбук для профессионалов с чипом M3 Pro.',
+    name: 'iPhone 17 pro max',
+    category: 'iPhone',
+    memory: '256 gb',
+    price: 117000,
+    images: ['https://picsum.photos/seed/iphone17max/800/800', 'https://picsum.photos/seed/iphone17max/2/800/800'],
+    description: 'Профессиональный iPhone для творчества и работы.',
     specifications: {
-      'Экран': '16.2" Liquid Retina XDR',
-      'Процессор': 'M3 Pro',
-      'RAM': '36GB',
-      'Батарея': 'До 22ч'
+      'Экран': '6.9" Super Retina XDR',
+      'Процессор': 'A19 Pro',
+      'Камера': '48MP Main + 12MP Ultra Wide',
+      'Батарея': 'До 30ч'
     },
     inStock: true
   },
   {
     id: '4',
-    name: 'iPad Pro 12.9"',
-    category: 'iPad',
-    memory: '256GB',
-    price: 1099,
-    images: ['https://picsum.photos/seed/ipadpro/800/800', 'https://picsum.photos/seed/ipadpro/2/800/800'],
-    description: 'Профессиональный планшет с чипом M2 и поддержкой Apple Pencil.',
+    name: 'Samsung S26',
+    category: 'Samsung',
+    memory: '256 gb',
+    price: 117000,
+    images: ['https://picsum.photos/seed/samsungs26/800/800', 'https://picsum.photos/seed/samsungs26/2/800/800'],
+    description: 'Флагманский Samsung с ИИ функциями и улучшенной камерой.',
     specifications: {
-      'Экран': '12.9" Liquid Retina XDR',
-      'Процессор': 'M2',
-      'Камера': '12MP Wide',
-      'Батарея': 'До 10ч'
-    },
-    inStock: true
-  },
-  {
-    id: '5',
-    name: 'AirPods Pro 2',
-    category: 'Аксессуары',
-    memory: 'N/A',
-    price: 249,
-    images: ['https://picsum.photos/seed/airpods/800/800', 'https://picsum.photos/seed/airpods/2/800/800'],
-    description: 'Беспроводные наушники с активным шумоподавлением.',
-    specifications: {
-      'Батарея': '6ч',
-      'Шумоподавление': 'Да',
-      'Водозащита': 'IPX4'
-    },
-    inStock: true
-  },
-  {
-    id: '6',
-    name: 'iPhone 15',
-    category: 'iPhone',
-    memory: '128GB',
-    price: 799,
-    images: ['https://picsum.photos/seed/iphone15/800/800', 'https://picsum.photos/seed/iphone15/2/800/800'],
-    description: 'Стильный iPhone с Dynamic Island и чипом A16 Bionic.',
-    specifications: {
-      'Экран': '6.1" Super Retina XDR',
-      'Процессор': 'A16 Bionic',
-      'Камера': '48MP Main',
-      'Батарея': 'До 26ч'
+      'Экран': '6.8" Dynamic AMOLED',
+      'Процессор': 'Snapdragon 8 Gen 4',
+      'Камера': '200MP Quad',
+      'Батарея': '5000mAh'
     },
     inStock: true
   }
@@ -129,12 +98,16 @@ export default function ProductPage() {
     setProduct(found || null)
   }, [params.id])
 
+  const formatPrice = (price: number) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+  }
+
   if (!product) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
-          <p className="mt-4 text-gray-400">Загрузка...</p>
+          <p className="mt-4 text-gray-400" style={{ fontFamily: 'Gotham Pro, sans-serif' }}>Загрузка...</p>
         </div>
       </div>
     )
@@ -150,15 +123,15 @@ export default function ProductPage() {
   }
 
   return (
-    <div className="min-h-screen pb-24">
-      <div className="glass sticky top-0 z-10 px-4 py-3 mx-2 mt-2">
-        <button onClick={() => router.back()} className="text-xl hover:scale-110 transition-transform">
+    <div className="min-h-screen pb-24 bg-background">
+      <div className="bg-[#2A2A2A] sticky top-0 z-10 px-4 py-3">
+        <button onClick={() => router.back()} className="text-xl text-white hover:opacity-70 transition-opacity">
           ← Назад
         </button>
       </div>
 
       <div className="px-4 max-w-md mx-auto mt-4">
-        <div className="glass p-2 rounded-2xl">
+        <div className="bg-[#2A2A2A] p-2 rounded-2xl">
           <div className="relative aspect-square rounded-xl overflow-hidden">
             <Image
               src={product.images[mainImage]}
@@ -187,42 +160,56 @@ export default function ProductPage() {
 
         <div className="mt-4 space-y-4">
           <div>
-            <h1 className="text-2xl font-bold">{product.name}</h1>
-            <p className="text-gray-400 text-sm">{product.memory}</p>
-            <p className="text-2xl font-bold text-primary mt-2">${product.price}</p>
+            <h1 className="text-2xl font-bold text-white" style={{ fontFamily: 'Gotham Pro, sans-serif' }}>
+              {product.name}
+            </h1>
+            <p className="text-gray-400 text-sm" style={{ fontFamily: 'Gotham Pro, sans-serif' }}>
+              {product.memory}
+            </p>
+            <p className="text-2xl font-bold text-primary mt-2" style={{ fontFamily: 'Gotham Pro, sans-serif' }}>
+              {formatPrice(product.price)}₽
+            </p>
           </div>
 
-          <div className="glass p-4">
-            <h2 className="font-semibold mb-2">📝 Описание</h2>
-            <p className="text-sm text-gray-300">{product.description}</p>
+          <div className="bg-[#2A2A2A] p-4 rounded-2xl">
+            <h2 className="font-semibold text-white mb-2" style={{ fontFamily: 'Gotham Pro, sans-serif' }}>
+              📝 Описание
+            </h2>
+            <p className="text-sm text-gray-300" style={{ fontFamily: 'Gotham Pro, sans-serif' }}>
+              {product.description}
+            </p>
           </div>
 
-          <div className="glass p-4">
-            <h2 className="font-semibold mb-3">⚙️ Характеристики</h2>
+          <div className="bg-[#2A2A2A] p-4 rounded-2xl">
+            <h2 className="font-semibold text-white mb-3" style={{ fontFamily: 'Gotham Pro, sans-serif' }}>
+              ⚙️ Характеристики
+            </h2>
             <div className="space-y-2">
               {Object.entries(product.specifications).map(([key, value]) => (
                 <div key={key} className="flex justify-between text-sm border-b border-white/5 pb-2">
-                  <span className="text-gray-400">{key}</span>
-                  <span className="text-gray-200">{value}</span>
+                  <span className="text-gray-400" style={{ fontFamily: 'Gotham Pro, sans-serif' }}>{key}</span>
+                  <span className="text-gray-200" style={{ fontFamily: 'Gotham Pro, sans-serif' }}>{value}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="glass p-4 flex items-center gap-4">
+          <div className="bg-[#2A2A2A] p-4 rounded-2xl flex items-center gap-4">
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-xl font-bold transition-colors"
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-xl font-bold text-white transition-colors"
+                style={{ fontFamily: 'Gotham Pro, sans-serif' }}
               >
                 −
               </button>
-              <span className="text-xl font-semibold min-w-[40px] text-center">
+              <span className="text-xl font-semibold min-w-[40px] text-center text-white" style={{ fontFamily: 'Gotham Pro, sans-serif' }}>
                 {quantity}
               </span>
               <button
                 onClick={() => setQuantity(quantity + 1)}
-                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-xl font-bold transition-colors"
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-xl font-bold text-white transition-colors"
+                style={{ fontFamily: 'Gotham Pro, sans-serif' }}
               >
                 +
               </button>
@@ -230,9 +217,10 @@ export default function ProductPage() {
 
             <button
               onClick={handleAddToCart}
-              className="flex-1 py-3 rounded-xl btn-primary font-semibold"
+              className="flex-1 py-3 rounded-xl bg-primary text-white font-semibold hover:opacity-80 transition-opacity"
+              style={{ fontFamily: 'Gotham Pro, sans-serif' }}
             >
-              В корзину — ${(product.price * quantity).toFixed(0)}
+              В корзину — {formatPrice(product.price * quantity)}₽
             </button>
           </div>
         </div>
