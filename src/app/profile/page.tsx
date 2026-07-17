@@ -1,40 +1,14 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-
-interface TelegramUser {
-  id: number
-  first_name: string
-  last_name?: string
-  username?: string
-  photo_url?: string
-}
+import Link from 'next/link'
+import { useTelegram } from '@/hooks/useTelegram'
 
 export default function ProfilePage() {
-  const [user, setUser] = useState<TelegramUser | null>(null)
+  const { user, isReady } = useTelegram()
   const [orders, setOrders] = useState<any[]>([])
 
   useEffect(() => {
-    // Получаем данные из Telegram
-    if (typeof window !== 'undefined' && (window as any).Telegram) {
-      const webApp = (window as any).Telegram.WebApp
-      webApp.ready()
-      const userData = webApp.initDataUnsafe?.user
-      if (userData) {
-        setUser(userData)
-      }
-    } else {
-      // Демо данные
-      setUser({
-        id: 123456789,
-        first_name: 'Демо',
-        last_name: 'Пользователь',
-        username: 'demouser',
-        photo_url: 'https://ui-avatars.com/api/?name=Demo+User&background=8B5CF6&color=fff'
-      })
-    }
-
-    // Пример заказов
     setOrders([
       { id: '1', date: '2024-01-15', total: 1299, items: 2, status: 'Доставлен' },
       { id: '2', date: '2024-01-10', total: 249, items: 1, status: 'В обработке' },
@@ -44,11 +18,14 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen pb-24">
       <div className="glass sticky top-0 z-10 px-4 py-3 mx-2 mt-2">
-        <h1 className="text-xl font-bold text-center">👤 Профиль</h1>
+        <div className="flex items-center justify-between max-w-md mx-auto">
+          <Link href="/" className="text-xl hover:scale-110 transition-transform">←</Link>
+          <h1 className="text-xl font-bold">👤 Профиль</h1>
+          <div className="w-8"></div>
+        </div>
       </div>
 
-      <div className="px-4 max-w-7xl mx-auto mt-4">
-        {/* Информация о пользователе */}
+      <div className="px-4 max-w-md mx-auto mt-4">
         <div className="glass p-6 flex items-center gap-4">
           {user?.photo_url ? (
             <img
@@ -67,10 +44,10 @@ export default function ProfilePage() {
             </h2>
             <p className="text-sm text-gray-400">@{user?.username || 'user'}</p>
             <p className="text-xs text-gray-500">ID: {user?.id}</p>
+            {isReady && <p className="text-xs text-green-400">✓ Telegram</p>}
           </div>
         </div>
 
-        {/* Статистика */}
         <div className="grid grid-cols-2 gap-3 mt-4">
           <div className="glass p-4 text-center">
             <p className="text-2xl font-bold text-primary">{orders.length}</p>
@@ -84,7 +61,6 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* История заказов */}
         <div className="mt-6">
           <h3 className="font-semibold text-lg mb-3">📦 История заказов</h3>
           {orders.map((order) => (
