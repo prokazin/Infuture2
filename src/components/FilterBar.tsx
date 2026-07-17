@@ -14,7 +14,7 @@ export default function FilterBar({ activeFilter, setActiveFilter }: FilterBarPr
         <button
           key={filter}
           onClick={() => setActiveFilter(filter)}
-          className={`tab whitespace-nowrap ${activeFilter === filter ? 'tab-active' : ''}`}
+          className={`tab ${activeFilter === filter ? 'tab-active' : ''}`}
         >
           {filter}
         </button>
