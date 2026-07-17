@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import './globals.css'  // ← ВАЖНО: правильный путь
+import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Infuture - Tech Store',
@@ -15,6 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
+      <head>
+        <script src="https://telegram.org/js/telegram-web-app.js" />
+      </head>
       <body>{children}</body>
     </html>
   )
