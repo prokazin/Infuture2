@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
@@ -14,6 +14,21 @@ interface Product {
   description: string
   specifications: Record<string, string>
   inStock: boolean
+}
+
+// Префикс для localStorage
+const STORAGE_PREFIX = 'infuture_'
+
+// Функции для работы с localStorage
+const getStorage = (key: string) => {
+  if (typeof window === 'undefined') return null
+  const data = localStorage.getItem(`${STORAGE_PREFIX}${key}`)
+  return data ? JSON.parse(data) : null
+}
+
+const setStorage = (key: string, value: any) => {
+  if (typeof window === 'undefined') return
+  localStorage.setItem(`${STORAGE_PREFIX}${key}`, JSON.stringify(value))
 }
 
 // Начальные товары
@@ -115,16 +130,19 @@ const defaultProducts: Product[] = [
   }
 ]
 
+// Проверка секретного ключа
+const ADMIN_SECRET = 'infuture_admin_2024'
+
 export default function AdminPage() {
   const router = useRouter()
   const [isAdmin, setIsAdmin] = useState(false)
-  const [password, setPassword] = useState('')
+  const [secretKey, setSecretKey] = useState('')
   const [products, setProducts] = useState<Product[]>([])
   const [showForm, setShowForm] = useState(false)
   const [editingProduct, setEditingProduct] = useState<Product | null>(null)
   const [searchTerm, setSearchTerm] = useState('')
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
-  // Форма добавления товара
   const [formData, setFormData] = useState({
     name: '',
     category: 'iPhone',
@@ -135,45 +153,47 @@ export default function AdminPage() {
     specs: ''
   })
 
-  // Загрузка товаров при монтировании
   useEffect(() => {
     loadProducts()
   }, [])
 
   const loadProducts = () => {
-    const saved = localStorage.getItem('products')
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved)
-        if (parsed.length > 0) {
-          setProducts(parsed)
-          return
-        }
-      } catch (e) {
-        console.error('Error loading products:', e)
-      }
+    const saved = getStorage('products')
+    if (saved && saved.length > 0) {
+      setProducts(saved)
+    } else {
+      setProducts(defaultProducts)
+      setStorage('products', defaultProducts)
     }
-    // Если нет сохраненных, используем дефолтные
-    setProducts(defaultProducts)
-    localStorage.setItem('products', JSON.stringify(defaultProducts))
   }
 
   const saveProducts = (updatedProducts: Product[]) => {
     setProducts(updatedProducts)
-    localStorage.setItem('products', JSON.stringify(updatedProducts))
-    // Обновляем также в sessionStorage для синхронизации
-    sessionStorage.setItem('products', JSON.stringify(updatedProducts))
+    setStorage('products', updatedProducts)
   }
 
-  // Проверка пароля
+  // Проверка секретного ключа
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
-    if (password === 'admin123') {
+    if (secretKey === ADMIN_SECRET) {
       setIsAdmin(true)
-      setPassword('')
+      setSecretKey('')
     } else {
-      alert('❌ Неверный пароль! Попробуйте еще раз.')
+      alert('❌ Неверный секретный ключ!')
     }
+  }
+
+  // Загрузка фото с устройства
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    const reader = new FileReader()
+    reader.onloadend = () => {
+      const base64String = reader.result as string
+      setFormData({ ...formData, image: base64String })
+    }
+    reader.readAsDataURL(file)
   }
 
   // Добавление товара
@@ -222,7 +242,6 @@ export default function AdminPage() {
     alert('✅ Товар успешно добавлен!')
   }
 
-  // Редактирование товара
   const handleEdit = (product: Product) => {
     setEditingProduct(product)
     setFormData({
@@ -283,7 +302,6 @@ export default function AdminPage() {
     alert('✅ Товар обновлен!')
   }
 
-  // Удаление товара
   const handleDelete = (id: string) => {
     if (confirm('🗑️ Вы уверены, что хотите удалить этот товар?')) {
       const updated = products.filter(p => p.id !== id)
@@ -292,13 +310,12 @@ export default function AdminPage() {
     }
   }
 
-  // Фильтрация товаров
   const filteredProducts = products.filter(p =>
     p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     p.category.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
-  // Если не админ - показываем форму входа
+  // Если не админ - показываем форму входа с секретным ключом
   if (!isAdmin) {
     return (
       <div className="flex items-center justify-center min-h-screen px-4">
@@ -308,14 +325,14 @@ export default function AdminPage() {
             <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
               Админ панель
             </h1>
-            <p className="text-sm text-gray-400 mt-1">Введите пароль для доступа</p>
+            <p className="text-sm text-gray-400 mt-1">Введите секретный ключ для доступа</p>
           </div>
           <form onSubmit={handleLogin} className="space-y-4">
             <input
               type="password"
-              placeholder="Введите пароль"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Введите секретный ключ"
+              value={secretKey}
+              onChange={(e) => setSecretKey(e.target.value)}
               className="w-full px-4 py-3 rounded-xl bg-background border border-white/10 text-white placeholder-gray-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
               autoFocus
             />
@@ -327,7 +344,7 @@ export default function AdminPage() {
             </button>
           </form>
           <p className="text-xs text-gray-500 text-center mt-4">
-            🔑 Пароль по умолчанию: <span className="text-primary">admin123</span>
+            🔑 Секретный ключ: <span className="text-primary">infuture_admin_2024</span>
           </p>
         </div>
       </div>
@@ -336,11 +353,10 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen pb-24">
-      {/* Верхняя панель */}
       <div className="glass sticky top-0 z-10 px-4 py-3 mx-2 mt-2">
         <div className="flex items-center justify-between max-w-6xl mx-auto">
           <button 
-            onClick={() => router.back()} 
+            onClick={() => router.push('/')} 
             className="text-xl hover:scale-110 transition-transform"
           >
             ←
@@ -360,7 +376,6 @@ export default function AdminPage() {
       </div>
 
       <div className="px-4 max-w-6xl mx-auto mt-4">
-        {/* Статистика */}
         <div className="grid grid-cols-3 gap-3 mb-4">
           <div className="glass p-3 text-center">
             <p className="text-2xl font-bold text-primary">{products.length}</p>
@@ -380,7 +395,6 @@ export default function AdminPage() {
           </div>
         </div>
 
-        {/* Поиск и кнопка добавления */}
         <div className="flex gap-3 mb-4">
           <input
             type="text"
@@ -412,7 +426,6 @@ export default function AdminPage() {
           </button>
         </div>
 
-        {/* Форма добавления/редактирования */}
         {showForm && (
           <div className="glass p-4 mb-4">
             <h2 className="font-semibold text-lg mb-3">
@@ -472,14 +485,35 @@ export default function AdminPage() {
               </div>
 
               <div>
-                <label className="text-sm text-gray-400 block mb-1">URL фото</label>
-                <input
-                  type="text"
-                  value={formData.image}
-                  onChange={(e) => setFormData({...formData, image: e.target.value})}
-                  className="w-full px-4 py-2 rounded-xl bg-background border border-white/10 text-white focus:border-primary focus:outline-none"
-                  placeholder="https://picsum.photos/seed/.../400/400"
-                />
+                <label className="text-sm text-gray-400 block mb-1">Фото</label>
+                <div className="flex gap-3">
+                  <input
+                    type="text"
+                    value={formData.image}
+                    onChange={(e) => setFormData({...formData, image: e.target.value})}
+                    className="flex-1 px-4 py-2 rounded-xl bg-background border border-white/10 text-white focus:border-primary focus:outline-none"
+                    placeholder="https://picsum.photos/seed/.../400/400"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="px-4 py-2 rounded-xl bg-blue-500 hover:bg-blue-600 text-white transition-colors whitespace-nowrap"
+                  >
+                    📁 Загрузить
+                  </button>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileUpload}
+                    className="hidden"
+                  />
+                </div>
+                {formData.image && (
+                  <div className="mt-2 relative w-20 h-20 rounded-lg overflow-hidden">
+                    <Image src={formData.image} alt="Preview" fill className="object-cover" />
+                  </div>
+                )}
               </div>
 
               <div>
@@ -516,7 +550,6 @@ export default function AdminPage() {
           </div>
         )}
 
-        {/* Список товаров */}
         <div className="space-y-2">
           <div className="flex justify-between items-center mb-3">
             <h2 className="font-semibold text-lg">📦 Все товары</h2>
