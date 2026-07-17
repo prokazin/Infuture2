@@ -6,7 +6,8 @@ import BottomNav from '@/components/BottomNav'
 import ProductCard from '@/components/ProductCard'
 import { Product } from '@/types'
 
-const products: Product[] = [
+// Дефолтные товары
+const defaultProducts: Product[] = [
   {
     id: '1',
     name: 'iPhone 15 Pro Max',
@@ -18,61 +19,7 @@ const products: Product[] = [
     specifications: { 'Экран': '6.7"', 'Процессор': 'A17 Pro' },
     inStock: true
   },
-  {
-    id: '2',
-    name: 'Samsung Galaxy S24',
-    category: 'Samsung',
-    memory: '256GB',
-    price: 999,
-    images: ['https://picsum.photos/seed/samsung24/400/400'],
-    description: 'Мощный Android смартфон',
-    specifications: { 'Экран': '6.8"', 'Процессор': 'Snapdragon 8 Gen 3' },
-    inStock: true
-  },
-  {
-    id: '3',
-    name: 'MacBook Pro 16"',
-    category: 'MacBook',
-    memory: '1TB',
-    price: 2499,
-    images: ['https://picsum.photos/seed/macbook16/400/400'],
-    description: 'Мощный ноутбук для профессионалов',
-    specifications: { 'Экран': '16.2"', 'Процессор': 'M3 Pro' },
-    inStock: true
-  },
-  {
-    id: '4',
-    name: 'iPad Pro 12.9"',
-    category: 'iPad',
-    memory: '256GB',
-    price: 1099,
-    images: ['https://picsum.photos/seed/ipadpro/400/400'],
-    description: 'Профессиональный планшет',
-    specifications: { 'Экран': '12.9"', 'Процессор': 'M2' },
-    inStock: true
-  },
-  {
-    id: '5',
-    name: 'AirPods Pro 2',
-    category: 'Аксессуары',
-    memory: 'N/A',
-    price: 249,
-    images: ['https://picsum.photos/seed/airpods/400/400'],
-    description: 'Беспроводные наушники',
-    specifications: { 'Батарея': '6ч', 'Шумоподавление': 'Да' },
-    inStock: true
-  },
-  {
-    id: '6',
-    name: 'iPhone 15',
-    category: 'iPhone',
-    memory: '128GB',
-    price: 799,
-    images: ['https://picsum.photos/seed/iphone15/400/400'],
-    description: 'Стильный iPhone с Dynamic Island',
-    specifications: { 'Экран': '6.1"', 'Процессор': 'A16 Bionic' },
-    inStock: true
-  }
+  // ... остальные товары
 ]
 
 const filters = ['Все', 'iPhone', 'Samsung', 'MacBook', 'iPad', 'Аксессуары']
@@ -80,16 +27,38 @@ const filters = ['Все', 'iPhone', 'Samsung', 'MacBook', 'iPad', 'Аксесс
 export default function Home() {
   const [activeFilter, setActiveFilter] = useState('Все')
   const [cart, setCart] = useState<Product[]>([])
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>(products)
+  const [products, setProducts] = useState<Product[]>([])
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
 
+  // Загрузка товаров
+  useEffect(() => {
+    const saved = localStorage.getItem('products')
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved)
+        if (parsed.length > 0) {
+          setProducts(parsed)
+          return
+        }
+      } catch (e) {
+        console.error('Error loading products:', e)
+      }
+    }
+    // Если нет сохраненных, используем дефолтные
+    setProducts(defaultProducts)
+    localStorage.setItem('products', JSON.stringify(defaultProducts))
+  }, [])
+
+  // Фильтрация товаров
   useEffect(() => {
     if (activeFilter === 'Все') {
       setFilteredProducts(products)
     } else {
       setFilteredProducts(products.filter(p => p.category === activeFilter))
     }
-  }, [activeFilter])
+  }, [activeFilter, products])
 
+  // Загрузка корзины
   useEffect(() => {
     const saved = localStorage.getItem('cart')
     if (saved) setCart(JSON.parse(saved))
@@ -108,7 +77,7 @@ export default function Home() {
       <TopBar />
       
       <div className="px-4 py-3 overflow-x-auto">
-        <div className="flex gap-2 min-w-max">
+        <div className="flex gap-2 min-w-max max-w-md mx-auto">
           {filters.map((filter) => (
             <button
               key={filter}
@@ -125,7 +94,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="px-4">
+      <div className="px-4 max-w-md mx-auto">
         <div className="grid grid-cols-2 gap-3">
           {filteredProducts.map((product) => (
             <ProductCard 
