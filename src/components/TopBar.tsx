@@ -36,9 +36,6 @@ export default function TopBar() {
           <Link href="/cart" className="block py-2 hover:bg-white/10 rounded-lg px-3 transition-colors">
             🛒 Корзина
           </Link>
-          <Link href="/admin" className="block py-2 hover:bg-white/10 rounded-lg px-3 transition-colors">
-            ⚙️ Админ панель
-          </Link>
           <hr className="border-white/10 my-2" />
           <button className="block w-full text-left py-2 hover:bg-white/10 rounded-lg px-3 transition-colors text-red-400">
             🚪 Выйти
