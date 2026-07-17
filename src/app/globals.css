@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Подключение шрифта Inter */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/* Подключаем шрифт Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 :root {
   --bg-main: #111827;
@@ -12,7 +12,6 @@
   --accent-hover: #7C3AED;
   --text-primary: #F1F5F9;
   --text-secondary: #94A3B8;
-  --tab-active: #8B5CF6;
   --border: #334155;
 }
 
@@ -30,13 +29,12 @@ body {
   min-height: 100vh;
 }
 
-/* Header */
+/* Кастомные классы для дизайна */
 .header {
   background: var(--bg-card);
   border-bottom: 1px solid var(--border);
 }
 
-/* Product Card */
 .product-card {
   background: var(--bg-card);
   border-radius: 24px;
@@ -49,7 +47,6 @@ body {
   box-shadow: 0 25px 50px -12px rgba(139, 92, 246, 0.25);
 }
 
-/* Tabs */
 .tab {
   padding: 10px 24px;
   border-radius: 9999px;
@@ -60,6 +57,7 @@ body {
   border: none;
   cursor: pointer;
   font-size: 14px;
+  white-space: nowrap;
 }
 
 .tab:hover {
@@ -73,20 +71,22 @@ body {
   box-shadow: 0 4px 15px -2px rgba(139, 92, 246, 0.4);
 }
 
-/* Price */
 .price {
   font-size: 1.35rem;
   font-weight: 700;
   letter-spacing: -0.5px;
 }
 
-/* Buttons */
 .btn-cart {
   background: var(--accent);
   transition: all 0.2s;
   color: white;
   border: none;
   cursor: pointer;
+  padding: 12px 28px;
+  border-radius: 16px;
+  font-weight: 500;
+  font-size: 14px;
 }
 
 .btn-cart:hover {
@@ -94,16 +94,19 @@ body {
   transform: scale(1.05);
 }
 
-/* Bottom Nav */
+.btn-cart:active {
+  transform: scale(0.95);
+}
+
 .bottom-nav {
   background: var(--bg-card);
   border-top: 1px solid var(--border);
 }
 
-/* Scrollbar */
+/* Стилизация скролла */
 ::-webkit-scrollbar {
-  height: 2px;
   width: 4px;
+  height: 2px;
 }
 
 ::-webkit-scrollbar-track {
@@ -115,33 +118,12 @@ body {
   border-radius: 10px;
 }
 
-/* Animations */
+/* Анимации */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .fade-in {
   animation: fadeIn 0.3s ease-in-out;
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.scale-in {
-  animation: scaleIn 0.3s ease-in-out;
 }
