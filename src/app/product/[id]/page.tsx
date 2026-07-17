@@ -3,10 +3,16 @@
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
-import Link from 'next/link'
 import { Product } from '@/types'
 
-// Дефолтные товары (те же, что и в page.tsx)
+const STORAGE_PREFIX = 'infuture_'
+
+const getStorage = (key: string) => {
+  if (typeof window === 'undefined') return null
+  const data = localStorage.getItem(`${STORAGE_PREFIX}${key}`)
+  return data ? JSON.parse(data) : null
+}
+
 const defaultProducts: Product[] = [
   {
     id: '1',
@@ -24,7 +30,85 @@ const defaultProducts: Product[] = [
     },
     inStock: true
   },
-  // ... остальные товары
+  {
+    id: '2',
+    name: 'Samsung Galaxy S24',
+    category: 'Samsung',
+    memory: '256GB',
+    price: 999,
+    images: ['https://picsum.photos/seed/samsung24/800/800', 'https://picsum.photos/seed/samsung24/2/800/800'],
+    description: 'Мощный Android смартфон с ИИ функциями и улучшенной камерой.',
+    specifications: {
+      'Экран': '6.8" Dynamic AMOLED',
+      'Процессор': 'Snapdragon 8 Gen 3',
+      'Камера': '200MP Quad',
+      'Батарея': '5000mAh'
+    },
+    inStock: true
+  },
+  {
+    id: '3',
+    name: 'MacBook Pro 16"',
+    category: 'MacBook',
+    memory: '1TB',
+    price: 2499,
+    images: ['https://picsum.photos/seed/macbook16/800/800', 'https://picsum.photos/seed/macbook16/2/800/800'],
+    description: 'Мощный ноутбук для профессионалов с чипом M3 Pro.',
+    specifications: {
+      'Экран': '16.2" Liquid Retina XDR',
+      'Процессор': 'M3 Pro',
+      'RAM': '36GB',
+      'Батарея': 'До 22ч'
+    },
+    inStock: true
+  },
+  {
+    id: '4',
+    name: 'iPad Pro 12.9"',
+    category: 'iPad',
+    memory: '256GB',
+    price: 1099,
+    images: ['https://picsum.photos/seed/ipadpro/800/800', 'https://picsum.photos/seed/ipadpro/2/800/800'],
+    description: 'Профессиональный планшет с чипом M2 и поддержкой Apple Pencil.',
+    specifications: {
+      'Экран': '12.9" Liquid Retina XDR',
+      'Процессор': 'M2',
+      'Камера': '12MP Wide',
+      'Батарея': 'До 10ч'
+    },
+    inStock: true
+  },
+  {
+    id: '5',
+    name: 'AirPods Pro 2',
+    category: 'Аксессуары',
+    memory: 'N/A',
+    price: 249,
+    images: ['https://picsum.photos/seed/airpods/800/800', 'https://picsum.photos/seed/airpods/2/800/800'],
+    description: 'Беспроводные наушники с активным шумоподавлением.',
+    specifications: {
+      'Батарея': '6ч',
+      'Шумоподавление': 'Да',
+      'Водозащита': 'IPX4'
+    },
+    inStock: true
+  },
+  {
+    id: '6',
+    name: 'iPhone 15',
+    category: 'iPhone',
+    memory: '128GB',
+    price: 799,
+    images: ['https://picsum.photos/seed/iphone15/800/800', 'https://picsum.photos/seed/iphone15/2/800/800'],
+    description: 'Стильный iPhone с Dynamic Island и чипом A16 Bionic.',
+    specifications: {
+      'Экран': '6.1" Super Retina XDR',
+      'Процессор': 'A16 Bionic',
+      'Камера': '48MP Main',
+      'Батарея': 'До 26ч'
+    },
+    inStock: true
+  }
 ]
 
 export default function ProductPage() {
@@ -35,18 +119,10 @@ export default function ProductPage() {
   const [mainImage, setMainImage] = useState(0)
 
   useEffect(() => {
-    // Загружаем товары из localStorage
-    const saved = localStorage.getItem('products')
+    const saved = getStorage('products')
     let products = defaultProducts
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved)
-        if (parsed.length > 0) {
-          products = parsed
-        }
-      } catch (e) {
-        console.error('Error loading products:', e)
-      }
+    if (saved && saved.length > 0) {
+      products = saved
     }
     
     const found = products.find(p => p.id === params.id)
@@ -65,11 +141,11 @@ export default function ProductPage() {
   }
 
   const handleAddToCart = () => {
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]')
+    const cart = JSON.parse(localStorage.getItem(`${STORAGE_PREFIX}cart`) || '[]')
     for (let i = 0; i < quantity; i++) {
       cart.push(product)
     }
-    localStorage.setItem('cart', JSON.stringify(cart))
+    localStorage.setItem(`${STORAGE_PREFIX}cart`, JSON.stringify(cart))
     alert(`✅ Добавлено ${quantity} × ${product.name}`)
   }
 
