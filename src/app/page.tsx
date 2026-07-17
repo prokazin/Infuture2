@@ -20,6 +20,7 @@ const setStorage = (key: string, value: any) => {
   localStorage.setItem(`${STORAGE_PREFIX}${key}`, JSON.stringify(value))
 }
 
+// Товары по умолчанию
 const defaultProducts: Product[] = [
   {
     id: '1',
@@ -45,17 +46,6 @@ const defaultProducts: Product[] = [
   },
   {
     id: '3',
-    name: 'iPhone 17 Pro Max',
-    category: 'iPhone',
-    memory: '256 GB • Фиолетовый',
-    price: 117000,
-    images: ['https://picsum.photos/id/301/400/400'],
-    description: 'Профессиональный iPhone для творчества',
-    specifications: { 'Экран': '6.9"', 'Процессор': 'A19 Pro', 'Камера': '48MP' },
-    inStock: true
-  },
-  {
-    id: '4',
     name: 'Samsung S26',
     category: 'Samsung',
     memory: '256 GB • Черный',
@@ -66,7 +56,7 @@ const defaultProducts: Product[] = [
     inStock: true
   },
   {
-    id: '5',
+    id: '4',
     name: 'MacBook Pro 16"',
     category: 'Macbook',
     memory: '512 GB • Серый',
@@ -74,17 +64,6 @@ const defaultProducts: Product[] = [
     images: ['https://picsum.photos/id/501/400/400'],
     description: 'Мощный ноутбук для профессионалов',
     specifications: { 'Экран': '16.2"', 'Процессор': 'M3 Pro', 'RAM': '36GB' },
-    inStock: true
-  },
-  {
-    id: '6',
-    name: 'Samsung S26 Ultra',
-    category: 'Samsung',
-    memory: '512 GB • Золотой',
-    price: 149900,
-    images: ['https://picsum.photos/id/601/400/400'],
-    description: 'Самый мощный Samsung с улучшенной камерой',
-    specifications: { 'Экран': '6.9"', 'Процессор': 'Snapdragon 8 Gen 4', 'Камера': '200MP' },
     inStock: true
   }
 ]
@@ -131,7 +110,7 @@ export default function Home() {
       <TopBar />
       <FilterBar activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
       
-      {/* Logo */}
+      {/* Логотип */}
       <div className="flex justify-center my-8">
         <div className="w-20 h-20 bg-gradient-to-br from-violet-500 to-purple-600 rounded-3xl flex items-center justify-center shadow-xl">
           <span className="text-5xl font-black text-white tracking-tighter">∞</span>
@@ -140,7 +119,7 @@ export default function Home() {
 
       <h2 className="text-3xl font-semibold text-center mb-8 text-white">Каталог</h2>
 
-      {/* Products Grid */}
+      {/* Сетка товаров */}
       <div className="max-w-xl mx-auto px-5 pb-24">
         <div className="grid grid-cols-2 gap-5">
           {filteredProducts.map((product) => (
