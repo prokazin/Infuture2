@@ -7,41 +7,41 @@ export default function TopBar() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
-    <div className="bg-[#2A2A2A] sticky top-0 z-50 px-4 py-3">
-      <div className="flex items-center justify-between max-w-md mx-auto">
+    <header className="header sticky top-0 z-50">
+      <div className="max-w-xl mx-auto px-5 py-4 flex items-center justify-between">
         <button 
           onClick={() => setMenuOpen(!menuOpen)}
-          className="text-2xl text-white hover:opacity-70 transition-opacity"
+          className="p-2 -ml-2 text-2xl text-white hover:opacity-70 transition-opacity"
         >
-          ☰
+          <i className="fas fa-bars"></i>
         </button>
         
-        <div className="flex items-center gap-2">
-          <span className="text-2xl text-primary">∞</span>
-          <span className="text-xl font-bold text-white" style={{ fontFamily: 'Gotham Pro, sans-serif' }}>
-            Infuture
-          </span>
-        </div>
+        <h1 className="text-2xl font-semibold tracking-tighter text-white">
+          Infuture
+        </h1>
 
-        <Link href="/cart" className="text-2xl text-white hover:opacity-70 transition-opacity relative">
-          🛒
+        <Link href="/cart" className="relative">
+          <i className="fas fa-shopping-cart text-2xl text-white hover:opacity-70 transition-opacity"></i>
         </Link>
       </div>
 
       {menuOpen && (
-        <div className="absolute top-full left-0 right-0 bg-[#2A2A2A] mt-2 p-4 rounded-2xl mx-2">
-          <Link href="/profile" className="block py-2 hover:bg-white/10 rounded-lg px-3 transition-colors text-white" style={{ fontFamily: 'Gotham Pro, sans-serif' }}>
-            👤 Профиль
+        <div className="absolute top-full left-0 right-0 bg-[#1F2937] mt-0 p-4 rounded-b-2xl mx-0 border-b border-[#334155]">
+          <Link href="/profile" className="block py-2 hover:bg-white/10 rounded-lg px-3 transition-colors text-white">
+            <i className="fas fa-user mr-2"></i> Профиль
           </Link>
-          <Link href="/cart" className="block py-2 hover:bg-white/10 rounded-lg px-3 transition-colors text-white" style={{ fontFamily: 'Gotham Pro, sans-serif' }}>
-            🛒 Корзина
+          <Link href="/cart" className="block py-2 hover:bg-white/10 rounded-lg px-3 transition-colors text-white">
+            <i className="fas fa-shopping-cart mr-2"></i> Корзина
           </Link>
-          <hr className="border-white/10 my-2" />
-          <button className="block w-full text-left py-2 hover:bg-white/10 rounded-lg px-3 transition-colors text-red-400" style={{ fontFamily: 'Gotham Pro, sans-serif' }}>
-            🚪 Выйти
+          <Link href="/admin" className="block py-2 hover:bg-white/10 rounded-lg px-3 transition-colors text-white">
+            <i className="fas fa-cog mr-2"></i> Админ панель
+          </Link>
+          <hr className="border-[#334155] my-2" />
+          <button className="block w-full text-left py-2 hover:bg-white/10 rounded-lg px-3 transition-colors text-red-400">
+            <i className="fas fa-sign-out-alt mr-2"></i> Выйти
           </button>
         </div>
       )}
-    </div>
+    </header>
   )
 }
