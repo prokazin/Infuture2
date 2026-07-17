@@ -28,6 +28,7 @@ export default function ProductCard({ product, onAddToCart }: Props) {
   return (
     <Link href={`/product/${product.id}`}>
       <div className="product-card cursor-pointer">
+        {/* Изображение */}
         <div className="bg-gray-900 aspect-square flex items-center justify-center p-8 relative">
           <Image
             src={product.images[0]}
@@ -37,19 +38,18 @@ export default function ProductCard({ product, onAddToCart }: Props) {
             sizes="(max-width: 768px) 50vw, 33vw"
           />
         </div>
+        
+        {/* Информация */}
         <div className="p-5">
           <h3 className="font-semibold text-white">{product.name}</h3>
           <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
             {product.memory}
           </p>
           <div className="flex items-end justify-between mt-4">
-            <div>
-              <span className="price text-white">{formatPrice(product.price)} ₽</span>
-            </div>
+            <span className="price text-white">{formatPrice(product.price)} ₽</span>
             <button
               onClick={handleAdd}
-              className={`btn-cart text-white px-7 py-3 rounded-2xl text-sm font-medium
-                ${added ? 'bg-green-500 hover:bg-green-600' : ''}`}
+              className={`btn-cart ${added ? 'bg-green-500 hover:bg-green-600' : ''}`}
             >
               {added ? '✓' : 'В корзину'}
             </button>
