@@ -18,7 +18,7 @@ export default function RootLayout({
       <head>
         <script src="https://telegram.org/js/telegram-web-app.js" />
       </head>
-      <body>{children}</body>
+      <body className="font-['Gotham_Pro']">{children}</body>
     </html>
   )
 }
