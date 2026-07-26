@@ -6,6 +6,7 @@ import FilterBar from '@/components/FilterBar'
 import BottomNav from '@/components/BottomNav'
 import ProductCard from '@/components/ProductCard'
 import { Product } from '@/types'
+import Image from 'next/image'
 
 const STORAGE_PREFIX = 'infuture_'
 
@@ -110,10 +111,16 @@ export default function Home() {
       <TopBar />
       <FilterBar activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
       
-      {/* Логотип */}
+      {/* Логотип на главной */}
       <div className="flex justify-center my-8">
         <div className="w-20 h-20 bg-gradient-to-br from-violet-500 to-purple-600 rounded-3xl flex items-center justify-center shadow-xl">
-          <span className="text-5xl font-black text-white tracking-tighter">∞</span>
+          <Image 
+            src="/logo.PNG" 
+            alt="Infuture" 
+            width={44} 
+            height={38}
+            className="object-contain"
+          />
         </div>
       </div>
 
