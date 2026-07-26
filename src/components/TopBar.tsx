@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function TopBar() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -17,10 +18,19 @@ export default function TopBar() {
           <i className="fas fa-bars"></i>
         </button>
         
-        {/* Логотип */}
-        <h1 className="text-2xl font-semibold tracking-tighter text-white">
-          Infuture
-        </h1>
+        {/* Логотип с картинкой */}
+        <div className="flex items-center gap-2">
+          <Image 
+            src="/logo.PNG" 
+            alt="Infuture" 
+            width={32} 
+            height={28}
+            className="object-contain"
+          />
+          <h1 className="text-xl font-semibold tracking-tighter text-white">
+            Infuture
+          </h1>
+        </div>
 
         {/* Корзина */}
         <Link href="/cart" className="relative">
