@@ -6,7 +6,6 @@ import FilterBar from '@/components/FilterBar'
 import BottomNav from '@/components/BottomNav'
 import ProductCard from '@/components/ProductCard'
 import { Product } from '@/types'
-import Image from 'next/image'
 
 const STORAGE_PREFIX = 'infuture_'
 
@@ -21,50 +20,50 @@ const setStorage = (key: string, value: any) => {
   localStorage.setItem(`${STORAGE_PREFIX}${key}`, JSON.stringify(value))
 }
 
-// Товары по умолчанию
+// Товары как в Figma
 const defaultProducts: Product[] = [
   {
     id: '1',
-    name: 'iPhone 17 Pro Max',
+    name: 'iPhone 17 pro max',
     category: 'iPhone',
-    memory: '256 GB • Оранжевый',
+    memory: '256 gb',
     price: 117000,
-    images: ['https://picsum.photos/id/1015/400/400'],
+    images: ['https://picsum.photos/seed/iphone17/400/400'],
     description: 'Флагманский iPhone с передовыми технологиями',
     specifications: { 'Экран': '6.9"', 'Процессор': 'A19 Pro', 'Камера': '48MP' },
     inStock: true
   },
   {
     id: '2',
-    name: 'iPhone 17 Pro Max',
+    name: 'iPhone 17 pro max',
     category: 'iPhone',
-    memory: '256 GB • Белый',
+    memory: '256 gb',
     price: 117000,
-    images: ['https://picsum.photos/id/201/400/400'],
+    images: ['https://picsum.photos/seed/iphone17pro/400/400'],
     description: 'Мощный iPhone с улучшенной камерой',
     specifications: { 'Экран': '6.9"', 'Процессор': 'A19 Pro', 'Камера': '48MP' },
     inStock: true
   },
   {
     id: '3',
-    name: 'Samsung S26',
-    category: 'Samsung',
-    memory: '256 GB • Черный',
+    name: 'iPhone 17 pro max',
+    category: 'iPhone',
+    memory: '256 gb',
     price: 117000,
-    images: ['https://picsum.photos/id/401/400/400'],
-    description: 'Флагманский Samsung с ИИ функциями',
-    specifications: { 'Экран': '6.8"', 'Процессор': 'Snapdragon 8 Gen 4', 'Камера': '200MP' },
+    images: ['https://picsum.photos/seed/iphone17max/400/400'],
+    description: 'Профессиональный iPhone для творчества',
+    specifications: { 'Экран': '6.9"', 'Процессор': 'A19 Pro', 'Камера': '48MP' },
     inStock: true
   },
   {
     id: '4',
-    name: 'MacBook Pro 16"',
-    category: 'Macbook',
-    memory: '512 GB • Серый',
-    price: 249900,
-    images: ['https://picsum.photos/id/501/400/400'],
-    description: 'Мощный ноутбук для профессионалов',
-    specifications: { 'Экран': '16.2"', 'Процессор': 'M3 Pro', 'RAM': '36GB' },
+    name: 'Samsung S26',
+    category: 'Samsung',
+    memory: '256 gb',
+    price: 117000,
+    images: ['https://picsum.photos/seed/samsungs26/400/400'],
+    description: 'Флагманский Samsung с ИИ функциями',
+    specifications: { 'Экран': '6.8"', 'Процессор': 'Snapdragon 8 Gen 4', 'Камера': '200MP' },
     inStock: true
   }
 ]
@@ -107,28 +106,20 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--bg-main)' }}>
+    <div className="min-h-screen bg-[#111827]">
       <TopBar />
-      <FilterBar activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
       
-      {/* Логотип на главной */}
-      <div className="flex justify-center my-8">
-        <div className="w-20 h-20 bg-gradient-to-br from-violet-500 to-purple-600 rounded-3xl flex items-center justify-center shadow-xl">
-          <Image 
-            src="/logo.PNG" 
-            alt="Infuture" 
-            width={44} 
-            height={38}
-            className="object-contain"
-          />
-        </div>
+      {/* Фильтры как в Figma */}
+      <FilterBar activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
+
+      {/* Заголовок Каталог */}
+      <div className="flex justify-center mt-4 mb-6">
+        <h1 className="catalog-title">Каталог</h1>
       </div>
 
-      <h2 className="text-3xl font-semibold text-center mb-8 text-white">Каталог</h2>
-
-      {/* Сетка товаров */}
-      <div className="max-w-xl mx-auto px-5 pb-24">
-        <div className="grid grid-cols-2 gap-5">
+      {/* Сетка товаров 2 колонки */}
+      <div className="max-w-[440px] mx-auto px-4 pb-24">
+        <div className="grid grid-cols-2 gap-6">
           {filteredProducts.map((product) => (
             <ProductCard 
               key={product.id} 
