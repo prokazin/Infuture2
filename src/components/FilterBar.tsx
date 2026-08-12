@@ -9,12 +9,17 @@ const filters = ['Все', 'iPhone', 'Samsung', 'Macbook']
 
 export default function FilterBar({ activeFilter, setActiveFilter }: FilterBarProps) {
   return (
-    <div className="max-w-xl mx-auto px-5 pb-4 flex gap-2 overflow-x-auto">
+    <div className="flex gap-3 px-4 py-4 overflow-x-auto">
       {filters.map((filter) => (
         <button
           key={filter}
           onClick={() => setActiveFilter(filter)}
-          className={`tab ${activeFilter === filter ? 'tab-active' : ''}`}
+          className={`filter-tab ${
+            activeFilter === filter ? 'filter-tab-active' : 'filter-tab-inactive'
+          }`}
+          style={{
+            minWidth: filter === 'Все' ? '89px' : filter === 'iPhone' ? '91px' : '119px'
+          }}
         >
           {filter}
         </button>
