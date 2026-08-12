@@ -22,38 +22,34 @@ export default function ProductCard({ product, onAddToCart }: Props) {
   }
 
   const formatPrice = (price: number) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '') + 'р'
   }
 
   return (
     <Link href={`/product/${product.id}`}>
       <div className="product-card cursor-pointer">
-        {/* Изображение */}
-        <div className="bg-gray-900 aspect-square flex items-center justify-center p-8 relative">
+        {/* Изображение - как в Figma */}
+        <div className="product-image relative">
           <Image
             src={product.images[0]}
             alt={product.name}
-            fill
+            width={144}
+            height={199}
             className="object-contain"
-            sizes="(max-width: 768px) 50vw, 33vw"
           />
         </div>
         
-        {/* Информация */}
-        <div className="p-5">
-          <h3 className="font-semibold text-white">{product.name}</h3>
-          <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-            {product.memory}
-          </p>
-          <div className="flex items-end justify-between mt-4">
-            <span className="price text-white">{formatPrice(product.price)} ₽</span>
-            <button
-              onClick={handleAdd}
-              className={`btn-cart ${added ? 'bg-green-500 hover:bg-green-600' : ''}`}
-            >
-              {added ? '✓' : 'В корзину'}
-            </button>
-          </div>
+        {/* Информация о товаре - как в Figma */}
+        <div className="product-info">
+          <div className="product-name">{product.name}</div>
+          <div className="product-memory">{product.memory}</div>
+          <div className="product-price">{formatPrice(product.price)}</div>
+          <button
+            onClick={handleAdd}
+            className="btn-cart-figma"
+          >
+            {added ? '✓' : 'в корзину'}
+          </button>
         </div>
       </div>
     </Link>
