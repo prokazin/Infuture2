@@ -28,7 +28,7 @@ const defaultProducts: Product[] = [
     category: 'iPhone',
     memory: '256 gb',
     price: 117000,
-    images: ['https://picsum.photos/seed/iphone17/400/400'],
+    images: ['/img/iphone-1.png'],
     description: 'Флагманский iPhone с передовыми технологиями',
     specifications: { 'Экран': '6.9"', 'Процессор': 'A19 Pro', 'Камера': '48MP' },
     inStock: true
@@ -39,7 +39,7 @@ const defaultProducts: Product[] = [
     category: 'iPhone',
     memory: '256 gb',
     price: 117000,
-    images: ['https://picsum.photos/seed/iphone17pro/400/400'],
+    images: ['/img/iphone-2.png'],
     description: 'Мощный iPhone с улучшенной камерой',
     specifications: { 'Экран': '6.9"', 'Процессор': 'A19 Pro', 'Камера': '48MP' },
     inStock: true
@@ -50,7 +50,7 @@ const defaultProducts: Product[] = [
     category: 'iPhone',
     memory: '256 gb',
     price: 117000,
-    images: ['https://picsum.photos/seed/iphone17max/400/400'],
+    images: ['/img/iphone-3.png'],
     description: 'Профессиональный iPhone для творчества',
     specifications: { 'Экран': '6.9"', 'Процессор': 'A19 Pro', 'Камера': '48MP' },
     inStock: true
@@ -61,7 +61,7 @@ const defaultProducts: Product[] = [
     category: 'Samsung',
     memory: '256 gb',
     price: 117000,
-    images: ['https://picsum.photos/seed/samsungs26/400/400'],
+    images: ['/img/samsung-s26.png'],
     description: 'Флагманский Samsung с ИИ функциями',
     specifications: { 'Экран': '6.8"', 'Процессор': 'Snapdragon 8 Gen 4', 'Камера': '200MP' },
     inStock: true
@@ -106,28 +106,30 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-[#111827]">
+    <div className="frame-12">
+      {/* Статус бар как в Figma */}
+      <div className="i-phone-xs-bars-status-default">
+        <div className="time">9:41</div>
+        <div className="rectangle-988"></div>
+      </div>
+
       <TopBar />
       
       {/* Фильтры как в Figma */}
       <FilterBar activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
 
-      {/* Заголовок Каталог */}
-      <div className="flex justify-center mt-4 mb-6">
-        <h1 className="catalog-title">Каталог</h1>
-      </div>
+      {/* Заголовок Каталог - div5 */}
+      <div className="catalog-title-figma">Каталог</div>
 
-      {/* Сетка товаров 2 колонки */}
-      <div className="max-w-[440px] mx-auto px-4 pb-24">
-        <div className="grid grid-cols-2 gap-6">
-          {filteredProducts.map((product) => (
-            <ProductCard 
-              key={product.id} 
-              product={product} 
-              onAddToCart={addToCart}
-            />
-          ))}
-        </div>
+      {/* Сетка товаров */}
+      <div className="grid grid-cols-2 gap-6 justify-items-center px-4 pb-24">
+        {filteredProducts.map((product) => (
+          <ProductCard 
+            key={product.id} 
+            product={product} 
+            onAddToCart={addToCart}
+          />
+        ))}
       </div>
 
       <BottomNav />
