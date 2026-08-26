@@ -2,10 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Подключаем шрифты */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-
-/* Gotham Pro - подключаем локально */
+/* Подключаем шрифты Gotham Pro */
 @font-face {
   font-family: 'Gotham Pro';
   src: url('/fonts/GothamPro.woff2') format('woff2'),
@@ -33,179 +30,262 @@
   font-display: swap;
 }
 
-:root {
-  --bg-main: #111827;
-  --bg-card: #1F2937;
-  --accent: #A369D0;
-  --accent-hover: #8B4FBF;
-  --text-primary: #F1F5F9;
-  --text-secondary: #94A3B8;
-  --border: #334155;
-  --white: #FFFFFF;
-  --black: #000000;
+/* Шрифт для статус-бара */
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('/fonts/SFProDisplay-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Gotham Pro', 'Inter', system-ui, sans-serif;
 }
 
 body {
   background: #111827;
-  color: var(--text-primary);
+  color: #ffffff;
+  font-family: 'Gotham Pro', 'Inter', system-ui, sans-serif;
   padding-bottom: 80px;
   min-height: 100vh;
 }
 
-/* Кастомные классы из Figma */
-.header {
-  background: var(--bg-card);
-  border-bottom: 1px solid var(--border);
+/* === Классы из Figma === */
+
+/* Основной контейнер - frame-12 */
+.frame-12 {
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  min-height: 1016px;
+  position: relative;
+  overflow: hidden;
+  background: #111827;
 }
 
-/* Карточка товара - точь-в-точь из Figma */
-.product-card {
+/* Статус бар - i-phone-xs-bars-status-default */
+.i-phone-xs-bars-status-default {
+  width: 100%;
+  max-width: 477.27px;
+  height: 56px;
+  position: relative;
+  margin: 0 auto;
+  top: 2px;
+}
+
+.time {
+  color: #ffffff;
+  text-align: center;
+  font-family: 'SF Pro Display', sans-serif;
+  font-size: 19.09px;
+  line-height: 22.91px;
+  letter-spacing: -0.21px;
+  font-weight: 600;
+  position: absolute;
+  left: 48.59px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.rectangle-988 {
+  background: #000000;
+  border-radius: 28px;
+  width: 151px;
+  height: 36px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 11px;
+}
+
+/* Фильтры */
+.rectangle-989 {
+  background: #a369d0;
+  border-radius: 13.2px;
+  width: 89.1px;
+  height: 33px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter-active {
+  background: #a369d0;
+  color: #ffffff;
+  font-family: 'Gotham Pro', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 0 15px;
+  height: 33px;
+  border-radius: 13.2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-inactive {
+  background: #ffffff;
+  color: #000000;
+  font-family: 'Gotham Pro', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 0 15px;
+  height: 33px;
+  border-radius: 13.2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-inactive:hover {
+  background: #e8e8e8;
+}
+
+/* Карточки товара - frame-5, frame-6, frame-7, frame-8 */
+.product-card-figma {
+  background: #a369d0;
+  border-radius: 18px;
   width: 200px;
   height: 330px;
-  background: #A369D0;
   overflow: hidden;
-  border-radius: 18px;
+  position: relative;
   transition: all 0.3s ease;
 }
 
-.product-card:hover {
+.product-card-figma:hover {
   transform: translateY(-8px);
   box-shadow: 0 25px 50px -12px rgba(163, 105, 208, 0.4);
 }
 
-.product-card .product-image {
-  width: 144px;
-  height: 199px;
-  margin: 0 auto;
-  margin-top: -16px;
+/* Разделительная линия - line-4 */
+.line-4 {
+  border-style: solid;
+  border-color: #ffffff;
+  border-width: 1px 0 0 0;
+  width: 134px;
+  height: 0px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 173px;
 }
 
-.product-card .product-info {
+/* Информационный блок - frame-122 */
+.frame-122 {
+  background: #ffffff;
+  border-radius: 15px;
+  border: 1px solid #330656;
   width: 183px;
   height: 127px;
-  background: white;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 15px;
-  outline: 1px #330656 solid;
-  outline-offset: -1px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 18px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
   padding: 20px 0 0 19px;
-  position: relative;
-  margin: 0 auto;
 }
 
-.product-card .product-name {
-  color: black;
-  font-size: 12px;
+.i-phone-17-pro-max {
+  color: #000000;
   font-family: 'Gotham Pro', sans-serif;
+  font-size: 12px;
   font-weight: 700;
 }
 
-.product-card .product-memory {
-  color: black;
-  font-size: 12px;
+._256-gb {
+  color: #000000;
   font-family: 'Gotham Pro', sans-serif;
+  font-size: 12px;
   font-weight: 400;
   margin-top: 2px;
 }
 
-.product-card .product-price {
-  color: black;
-  font-size: 12px;
+._117-000 {
+  color: #000000;
   font-family: 'Gotham Pro', sans-serif;
+  font-size: 12px;
   font-weight: 700;
   position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: 40px;
-  left: 64px;
 }
 
-.product-card .btn-cart-figma {
+.rectangle-995 {
+  background: #a369d0;
+  border-radius: 6.13px;
   width: 125px;
   height: 21px;
-  background: #A369D0;
-  border-radius: 6.13px;
   position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: 13px;
-  left: 29px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 12px;
-  font-family: 'Gotham Pro', sans-serif;
-  font-weight: 700;
-  border: none;
   cursor: pointer;
   transition: all 0.2s;
 }
 
-.product-card .btn-cart-figma:hover {
+.rectangle-995:hover {
   background: #8B4FBF;
-  transform: scale(1.02);
 }
 
-/* Фильтры - как в Figma */
-.filter-tab {
-  height: 33px;
-  border-radius: 13.2px;
-  padding: 0 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 15px;
+.btn-cart-text {
+  color: #ffffff;
   font-family: 'Gotham Pro', sans-serif;
-  font-weight: 400;
-  cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-
-.filter-tab-active {
-  background: #A369D0;
-  color: white;
+  font-size: 12px;
   font-weight: 700;
 }
 
-.filter-tab-inactive {
-  background: white;
-  color: black;
-}
-
-.filter-tab-inactive:hover {
-  background: #e8e8e8;
-}
-
-/* Заголовок Каталог - как в Figma */
-.catalog-title {
-  color: white;
-  font-size: 36px;
+/* Заголовок Каталог - div5 */
+.catalog-title-figma {
+  color: #ffffff;
   font-family: 'Gotham Pro', sans-serif;
+  font-size: 36px;
   font-weight: 700;
   text-align: center;
+  margin: 16px 0 24px 0;
 }
 
-/* Нижняя навигация - как в Figma */
-.bottom-nav-figma {
+/* Нижняя навигация - frame-123 */
+.frame-123 {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 46px;
   width: 364px;
   height: 74px;
-  background: rgba(0, 0, 0, 0.60);
-  border-radius: 46px;
   position: fixed;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: space-around;
   padding: 0 10px;
-  backdrop-filter: blur(10px);
   z-index: 50;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Эллипс уведомления - ellipse-4 */
+.ellipse-4 {
+  background: #a369d0;
+  border-radius: 50%;
+  width: 9px;
+  height: 9px;
+  position: absolute;
+  right: 30px;
+  top: 16px;
 }
 
 /* Стилизация скролла */
@@ -219,7 +299,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #A369D0;
+  background: #a369d0;
   border-radius: 10px;
 }
 
