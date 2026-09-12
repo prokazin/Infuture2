@@ -38,7 +38,7 @@
 body {
   color: #ffffff;
   font-family: 'Gotham Pro', system-ui, sans-serif;
-  padding-bottom: 80px;
+  padding-bottom: 100px;
   min-height: 100vh;
 }
 
@@ -93,8 +93,8 @@ body {
 .product-card-figma {
   background: #a369d0;
   border-radius: 18px;
-  width: 200px;
-  height: 330px;
+  width: 165px;
+  height: 280px;
   overflow: hidden;
   position: relative;
   transition: all 0.3s ease;
@@ -105,44 +105,59 @@ body {
   box-shadow: 0 25px 50px -12px rgba(163, 105, 208, 0.4);
 }
 
+.product-card-figma .product-image {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 150px;
+}
+
+.product-card-figma .product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .line-4 {
   border-style: solid;
   border-color: #ffffff;
   border-width: 1px 0 0 0;
-  width: 134px;
+  width: 110px;
   height: 0px;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 173px;
+  top: 145px;
 }
 
 .frame-122 {
   background: #ffffff;
   border-radius: 15px;
   border: 1px solid #330656;
-  width: 183px;
-  height: 127px;
+  width: 150px;
+  height: 110px;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 18px;
+  bottom: 15px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   overflow: hidden;
-  padding: 20px 0 0 19px;
+  padding: 15px 0 0 15px;
 }
 
 .i-phone-17-pro-max {
   color: #000000;
   font-family: 'Gotham Pro', sans-serif;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
 }
 
 ._256-gb {
   color: #000000;
   font-family: 'Gotham Pro', sans-serif;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 400;
   margin-top: 2px;
 }
@@ -150,23 +165,23 @@ body {
 ._117-000 {
   color: #000000;
   font-family: 'Gotham Pro', sans-serif;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 40px;
+  bottom: 35px;
 }
 
 .rectangle-995 {
   background: #a369d0;
   border-radius: 6.13px;
-  width: 125px;
-  height: 21px;
+  width: 110px;
+  height: 20px;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 13px;
+  bottom: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -181,17 +196,8 @@ body {
 .btn-cart-text {
   color: #ffffff;
   font-family: 'Gotham Pro', sans-serif;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-}
-
-.catalog-title-figma {
-  color: #ffffff;
-  font-family: 'Gotham Pro', sans-serif;
-  font-size: 36px;
-  font-weight: 700;
-  text-align: center;
-  margin: 16px 0 24px 0;
 }
 
 .frame-123 {
@@ -209,9 +215,19 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 0 10px;
+  padding: 0 15px;
   z-index: 50;
   border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-circle-active {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ellipse-4 {
