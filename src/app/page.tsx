@@ -107,9 +107,7 @@ export default function Home() {
     <div className="frame-12">
       <FilterBar activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
 
-      <div className="catalog-title-figma">Каталог</div>
-
-      <div className="grid grid-cols-2 gap-6 justify-items-center px-4 pb-24">
+      <div className="grid grid-cols-2 gap-4 justify-items-center px-4 pb-24 pt-4">
         {filteredProducts.map((product) => (
           <ProductCard 
             key={product.id} 
