@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import TopBar from '@/components/TopBar'
 import FilterBar from '@/components/FilterBar'
 import BottomNav from '@/components/BottomNav'
 import ProductCard from '@/components/ProductCard'
@@ -20,7 +19,6 @@ const setStorage = (key: string, value: any) => {
   localStorage.setItem(`${STORAGE_PREFIX}${key}`, JSON.stringify(value))
 }
 
-// Товары как в Figma
 const defaultProducts: Product[] = [
   {
     id: '1',
@@ -28,9 +26,9 @@ const defaultProducts: Product[] = [
     category: 'iPhone',
     memory: '256 gb',
     price: 117000,
-    images: ['/img/iphone-1.png'],
-    description: 'Флагманский iPhone с передовыми технологиями',
-    specifications: { 'Экран': '6.9"', 'Процессор': 'A19 Pro', 'Камера': '48MP' },
+    images: ['/img/белый.png'],
+    description: 'Флагманский iPhone',
+    specifications: { 'Экран': '6.9"', 'Процессор': 'A19 Pro' },
     inStock: true
   },
   {
@@ -39,9 +37,9 @@ const defaultProducts: Product[] = [
     category: 'iPhone',
     memory: '256 gb',
     price: 117000,
-    images: ['/img/iphone-2.png'],
-    description: 'Мощный iPhone с улучшенной камерой',
-    specifications: { 'Экран': '6.9"', 'Процессор': 'A19 Pro', 'Камера': '48MP' },
+    images: ['/img/серый.png'],
+    description: 'Мощный iPhone',
+    specifications: { 'Экран': '6.9"', 'Процессор': 'A19 Pro' },
     inStock: true
   },
   {
@@ -50,9 +48,9 @@ const defaultProducts: Product[] = [
     category: 'iPhone',
     memory: '256 gb',
     price: 117000,
-    images: ['/img/iphone-3.png'],
-    description: 'Профессиональный iPhone для творчества',
-    specifications: { 'Экран': '6.9"', 'Процессор': 'A19 Pro', 'Камера': '48MP' },
+    images: ['/img/оранжевый.png'],
+    description: 'Профессиональный iPhone',
+    specifications: { 'Экран': '6.9"', 'Процессор': 'A19 Pro' },
     inStock: true
   },
   {
@@ -61,9 +59,9 @@ const defaultProducts: Product[] = [
     category: 'Samsung',
     memory: '256 gb',
     price: 117000,
-    images: ['/img/samsung-s26.png'],
-    description: 'Флагманский Samsung с ИИ функциями',
-    specifications: { 'Экран': '6.8"', 'Процессор': 'Snapdragon 8 Gen 4', 'Камера': '200MP' },
+    images: ['/img/самсунг.png'],
+    description: 'Флагманский Samsung',
+    specifications: { 'Экран': '6.8"', 'Процессор': 'Snapdragon 8 Gen 4' },
     inStock: true
   }
 ]
@@ -107,21 +105,10 @@ export default function Home() {
 
   return (
     <div className="frame-12">
-      {/* Статус бар как в Figma */}
-      <div className="i-phone-xs-bars-status-default">
-        <div className="time">9:41</div>
-        <div className="rectangle-988"></div>
-      </div>
-
-      <TopBar />
-      
-      {/* Фильтры как в Figma */}
       <FilterBar activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
 
-      {/* Заголовок Каталог - div5 */}
       <div className="catalog-title-figma">Каталог</div>
 
-      {/* Сетка товаров */}
       <div className="grid grid-cols-2 gap-6 justify-items-center px-4 pb-24">
         {filteredProducts.map((product) => (
           <ProductCard 
