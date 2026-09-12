@@ -22,36 +22,24 @@ export default function ProductCard({ product, onAddToCart }: Props) {
   }
 
   const formatPrice = (price: number) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '') + 'р'
-  }
-
-  // Определяем имя файла изображения из Figma
-  const getImagePath = (product: Product) => {
-    const imageMap: Record<string, string> = {
-      'iPhone 17 pro max': '/img/iphone-1.png',
-      'Samsung S26': '/img/samsung-s26.png',
-    }
-    return imageMap[product.name] || product.images[0]
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + 'р'
   }
 
   return (
     <Link href={`/product/${product.id}`}>
       <div className="product-card-figma cursor-pointer">
-        {/* Изображение товара - orig-3-no-bg-preview-carve-photos-1 */}
-        <div className="absolute top-[-16px] left-1/2 -translate-x-1/2 w-[144px] h-[199px]">
+        <div className="product-image">
           <Image
-            src={getImagePath(product)}
+            src={product.images[0]}
             alt={product.name}
-            width={144}
-            height={199}
+            width={110}
+            height={150}
             className="object-contain"
           />
         </div>
 
-        {/* Разделительная линия - line-4 */}
         <div className="line-4"></div>
 
-        {/* Информация о товаре - frame-122 */}
         <div className="frame-122">
           <div className="i-phone-17-pro-max">{product.name}</div>
           <div className="_256-gb">{product.memory}</div>
