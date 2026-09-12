@@ -73,8 +73,9 @@ export default function Home() {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
 
   useEffect(() => {
+    // Очищаем старое хранилище, если там были другие товары
     const saved = getStorage('products')
-    if (saved && saved.length > 0) {
+    if (saved && saved.length > 0 && saved[0].images?.[0]?.startsWith('/img/')) {
       setProducts(saved)
     } else {
       setProducts(defaultProducts)
