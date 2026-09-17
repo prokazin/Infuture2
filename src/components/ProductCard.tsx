@@ -4,6 +4,7 @@ import { Product } from '@/types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+import { formatPrice } from '@/lib/storage'
 
 interface Props {
   product: Product
@@ -19,10 +20,6 @@ export default function ProductCard({ product, onAddToCart }: Props) {
     onAddToCart(product)
     setAdded(true)
     setTimeout(() => setAdded(false), 1000)
-  }
-
-  const formatPrice = (price: number) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + 'р'
   }
 
   return (
@@ -44,10 +41,7 @@ export default function ProductCard({ product, onAddToCart }: Props) {
           <div className="i-phone-17-pro-max">{product.name}</div>
           <div className="_256-gb">{product.memory}</div>
           <div className="_117-000">{formatPrice(product.price)}</div>
-          <div 
-            className="rectangle-995"
-            onClick={handleAdd}
-          >
+          <div className="rectangle-995" onClick={handleAdd}>
             <span className="btn-cart-text">
               {added ? '✓' : 'в корзину'}
             </span>
