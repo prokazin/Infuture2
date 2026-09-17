@@ -5,82 +5,25 @@ import FilterBar from '@/components/FilterBar'
 import BottomNav from '@/components/BottomNav'
 import ProductCard from '@/components/ProductCard'
 import { Product } from '@/types'
-
-const STORAGE_PREFIX = 'infuture_'
-
-const getStorage = (key: string) => {
-  if (typeof window === 'undefined') return null
-  const data = localStorage.getItem(`${STORAGE_PREFIX}${key}`)
-  return data ? JSON.parse(data) : null
-}
-
-const setStorage = (key: string, value: any) => {
-  if (typeof window === 'undefined') return
-  localStorage.setItem(`${STORAGE_PREFIX}${key}`, JSON.stringify(value))
-}
-
-const defaultProducts: Product[] = [
-  {
-    id: '1',
-    name: 'iPhone 17 pro max',
-    category: 'iPhone',
-    memory: '256 gb',
-    price: 117000,
-    images: ['/img/белый.png'],
-    description: 'Флагманский iPhone',
-    specifications: { 'Экран': '6.9"', 'Процессор': 'A19 Pro' },
-    inStock: true
-  },
-  {
-    id: '2',
-    name: 'iPhone 17 pro max',
-    category: 'iPhone',
-    memory: '256 gb',
-    price: 117000,
-    images: ['/img/серый.png'],
-    description: 'Мощный iPhone',
-    specifications: { 'Экран': '6.9"', 'Процессор': 'A19 Pro' },
-    inStock: true
-  },
-  {
-    id: '3',
-    name: 'iPhone 17 pro max',
-    category: 'iPhone',
-    memory: '256 gb',
-    price: 117000,
-    images: ['/img/оранжевый.png'],
-    description: 'Профессиональный iPhone',
-    specifications: { 'Экран': '6.9"', 'Процессор': 'A19 Pro' },
-    inStock: true
-  },
-  {
-    id: '4',
-    name: 'Samsung S26',
-    category: 'Samsung',
-    memory: '256 gb',
-    price: 117000,
-    images: ['/img/самсунг.png'],
-    description: 'Флагманский Samsung',
-    specifications: { 'Экран': '6.8"', 'Процессор': 'Snapdragon 8 Gen 4' },
-    inStock: true
-  }
-]
+import {
+  getProducts,
+  getCart,
+  saveCart,
+} from '@/lib/storage'
 
 export default function Home() {
   const [activeFilter, setActiveFilter] = useState('Все')
-  const [cart, setCart] = useState<Product[]>([])
   const [products, setProducts] = useState<Product[]>([])
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
 
+  const loadProducts = () => {
+    setProducts(getProducts())
+  }
+
   useEffect(() => {
-    // Очищаем старое хранилище, если там были другие товары
-    const saved = getStorage('products')
-    if (saved && saved.length > 0 && saved[0].images?.[0]?.startsWith('/img/')) {
-      setProducts(saved)
-    } else {
-      setProducts(defaultProducts)
-      setStorage('products', defaultProducts)
-    }
+    loadProducts()
+    window.addEventListener('infuture_products_updated', loadProducts)
+    return () => window.removeEventListener('infuture_products_updated', loadProducts)
   }, [])
 
   useEffect(() => {
@@ -91,17 +34,10 @@ export default function Home() {
     }
   }, [activeFilter, products])
 
-  useEffect(() => {
-    const saved = getStorage('cart')
-    if (saved) setCart(saved)
-  }, [])
-
-  useEffect(() => {
-    setStorage('cart', cart)
-  }, [cart])
-
   const addToCart = (product: Product) => {
-    setCart([...cart, product])
+    const cart = getCart()
+    cart.push(product)
+    saveCart(cart)
   }
 
   return (
@@ -110,9 +46,9 @@ export default function Home() {
 
       <div className="grid grid-cols-2 gap-4 justify-items-center px-4 pb-24 pt-4">
         {filteredProducts.map((product) => (
-          <ProductCard 
-            key={product.id} 
-            product={product} 
+          <ProductCard
+            key={product.id}
+            product={product}
             onAddToCart={addToCart}
           />
         ))}
